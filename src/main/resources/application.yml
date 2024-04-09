@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: lms-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: mysecretpassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update # You can change this to "create" if you want to recreate the database schema on startup
+
+debnath:
+  openapi:
+    dev-url: http://localhost:8081
+    prod-url: https://lms-service-api.com
+
+server:
+  port: 8081
