@@ -13,8 +13,6 @@ public class User {
     private String username;
     private String passwordHash;
     private String email;
-    private String role;
-
-    // Getters and setters
+    private Role Role;
 
 }
