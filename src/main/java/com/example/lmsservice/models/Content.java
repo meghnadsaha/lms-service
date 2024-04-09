@@ -12,7 +12,7 @@ public class Content {
     private Long id;
     private Long courseId;
     private String title;
-    private String type;
+    private ContentType contentType;
 
     // Getters and setters
 }

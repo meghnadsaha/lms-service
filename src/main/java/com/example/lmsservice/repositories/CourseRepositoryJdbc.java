@@ -5,7 +5,6 @@ import com.example.lmsservice.models.Course;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -58,14 +57,9 @@ public class CourseRepositoryJdbc implements CourseRepository {
 
     @Override
     public Course updateCourse ( Long id , Course course ) {
-//        jdbcTemplate.update("UPDATE courses SET title = ?, description = ?, instructor_id = ? WHERE id = ?" ,
-//                            course.getTitle() , course.getDescription() , course.getInstructorId() , id);
-//        return course;
-
         try {
             String sql = "UPDATE courses SET title = ?, description = ?, instructor_id = ? WHERE id = ?";
             jdbcTemplate.update(sql , course.getTitle() , course.getDescription() , course.getInstructorId() , id);
-//            course.setId(id);
             return course;
         } catch (DataAccessException e) {
             throw new ValidationException("Failed to update course with id: " + id);

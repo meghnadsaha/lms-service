@@ -1,4 +1,4 @@
-package com.example.lmsservice.service;
+package com.example.lmsservice.services;
 
 import com.example.lmsservice.models.Enrollment;
 import com.example.lmsservice.repositories.EnrollmentRepositoryJdbc;

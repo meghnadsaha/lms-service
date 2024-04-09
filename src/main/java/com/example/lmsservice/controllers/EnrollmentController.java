@@ -1,7 +1,7 @@
 package com.example.lmsservice.controllers;
 
 import com.example.lmsservice.models.Enrollment;
-import com.example.lmsservice.service.EnrollmentService;
+import com.example.lmsservice.services.EnrollmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
