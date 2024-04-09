@@ -91,6 +91,8 @@ You are tasked with building an online learning management system (LMS) that all
 It will also assess their skills in frontend development using React and backend development using Spring boot and java 17.
 For the Online Learning Management System (LMS) use case, the table relationship diagram would include entities such as `users`, `courses`, `enrollments`, `content`, `assignments`, `grades`, `forum_posts`, `forum_comments`, and `notifications`. Here's a simplified diagram illustrating the relationships between these entities:
 
+
+![Learning Management System (LMS)  Entity-Relationship Diagram (ERD) ](../diagram/Online Learning Management System ERD Diagram.png)
 ```
 +-----------------+          +----------------+          +----------------+
 |     courses     |    1     |   enrollments   |     *    |      users     |
@@ -145,11 +147,19 @@ This diagram shows the relationships between the main entities in the LMS system
 Here's how we can create the schema that we described in PostgreSQL:
 
 ```roomsql
+
 CREATE TABLE courses (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
     instructor_id INT NOT NULL
+);
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE enrollments (
@@ -159,13 +169,6 @@ CREATE TABLE enrollments (
     enrollment_date DATE NOT NULL,
     FOREIGN KEY (course_id) REFERENCES courses(id),
     FOREIGN KEY (student_id) REFERENCES users(id)
-);
-
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    role VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE assignments (
@@ -217,3 +220,4 @@ CREATE TABLE forum_comments (
 This SQL code creates the necessary tables with their respective columns and foreign key 
 constraints to maintain the relationships between them. Note that you might need to adjust
 the data types and sizes based on your specific requirements.
+
