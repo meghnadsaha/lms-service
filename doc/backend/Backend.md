@@ -91,8 +91,7 @@ You are tasked with building an online learning management system (LMS) that all
 It will also assess their skills in frontend development using React and backend development using Spring boot and java 17.
 For the Online Learning Management System (LMS) use case, the table relationship diagram would include entities such as `users`, `courses`, `enrollments`, `content`, `assignments`, `grades`, `forum_posts`, `forum_comments`, and `notifications`. Here's a simplified diagram illustrating the relationships between these entities:
 
-
-![Learning Management System (LMS)  Entity-Relationship Diagram (ERD) ](Online Learning Management System ERD Diagram.png)
+![Learning Management System (LMS)  Entity-Relationship Diagram (ERD) ](../diagram/Online Learning Management System ERD Diagram.png)
 ```
 +-----------------+          +----------------+          +----------------+
 |     courses     |    1     |   enrollments   |     *    |      users     |
