@@ -3,7 +3,9 @@ package com.example.lmsservice.repositories;
 
 import com.example.lmsservice.models.User;
 
+import java.util.Optional;
+
 public interface UserRepository {
-    User findByUsername( String username);
-    User save(User user);
+    Optional<User> findByUsername( String username);
+    User saveUser(User user);
 }
