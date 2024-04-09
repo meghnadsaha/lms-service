@@ -97,7 +97,7 @@ For the Online Learning Management System (LMS) use case, the table relationship
 |     courses     |    1     |   enrollments   |     *    |      users     |
 +-----------------+----------+----------------+----------+----------------+
 | id              | <------> | id             |          | id             |
-| title           |          | course_id      |          | username       |
+| title           |          | course_id      |          | username/passwordHash        |
 | description     |          | student_id     |          | email          |
 | instructor_id   |          | enrollment_date|          | role           |
 +-----------------+          +----------------+          +----------------+
@@ -157,6 +157,7 @@ CREATE TABLE courses (
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
+    passwordHash  VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     role VARCHAR(50) NOT NULL
 );
