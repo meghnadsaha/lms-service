@@ -90,7 +90,7 @@ VALUES
 INSERT INTO roles(name) VALUES
     ('ROLE_USER'),
     ('ROLE_MODERATOR'),
-    ('ROLE_ADMIN') ;
+    ('ROLE_ADMIN');
 -- Insert data into the courses table
 INSERT INTO courses (title, description, instructor_id)
 VALUES
