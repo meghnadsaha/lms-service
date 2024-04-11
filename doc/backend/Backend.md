@@ -62,15 +62,19 @@ You are tasked with building an online learning management system (LMS) that all
       - POST `/course/:courseId` (create new forum post for a course), 
       - GET `/post/:id` (get post by id), 
       - PUT `/post/:id` (update post by id), 
-      - DELETE `/post/:id` (delete post by id), 
-      - POST `/comment/:postId` (add comment to a post), 
-      - DELETE `/comment/:commentId` (delete comment by id)
+      - DELETE `/post/:id` (delete post by id),
+      
+7. **Comment Forum API:**
+   - Endpoint: `/api/forum`
+        - POST `/comment/:postId` (add comment to a post), 
+        - DELETE `/comment/:commentId` (delete comment by id)
+        - POST `/comment/:postId` (reply on comments commentId)
 
-7. **Notification API:**
+8. **Notification API:**
     - Endpoint: `/api/notifications`
     - Methods: POST `/send` (send notifications to users about course updates, assignment deadlines, etc.)
 
-8. **Dashboard and Reporting API:**
+9. **Dashboard and Reporting API:**
     - Endpoint: `/api/dashboard`
     - Methods: 
       - GET `/overview` (get overview of system, e.g., number of courses, students, etc.), 

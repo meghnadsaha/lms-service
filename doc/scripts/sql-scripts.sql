@@ -1,3 +1,4 @@
+--Here's how LMS  schema's in PostgreSQL:
 
 CREATE TABLE courses (
     id SERIAL PRIMARY KEY,
@@ -6,13 +7,12 @@ CREATE TABLE courses (
     instructor_id INT NOT NULL
 );
 
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    passwordHash  VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    role VARCHAR(50) NOT NULL
-);
+select * from users;
+SELECT * FROM courses;
+--truncate table courses cascade
+SELECT * FROM enrollments;
+
+
 
 CREATE TABLE enrollments (
     id SERIAL PRIMARY KEY,
@@ -23,13 +23,14 @@ CREATE TABLE enrollments (
     FOREIGN KEY (student_id) REFERENCES users(id)
 );
 
-CREATE TABLE assignments (
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    course_id INT NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    due_date DATE NOT NULL,
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL
 );
+
+SELECT * FROM users ;
 
 CREATE TABLE content (
     id SERIAL PRIMARY KEY,
@@ -38,6 +39,21 @@ CREATE TABLE content (
     type VARCHAR(50) NOT NULL,
     FOREIGN KEY (course_id) REFERENCES courses(id)
 );
+
+SELECT * FROM content WHERE course_id=20 ;
+SELECT * FROM content WHERE id =3;
+
+
+CREATE TABLE assignments (
+    id SERIAL PRIMARY KEY,
+    course_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    due_date DATE NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+);
+
+SELECT * FROM assignments ;
+
 
 CREATE TABLE grades (
     id SERIAL PRIMARY KEY,
@@ -57,6 +73,7 @@ CREATE TABLE forum_posts (
     FOREIGN KEY (course_id) REFERENCES courses(id),
     FOREIGN KEY (author_id) REFERENCES users(id)
 );
+SELECT * FROM forum_posts ;
 
 CREATE TABLE forum_comments (
     id SERIAL PRIMARY KEY,
@@ -65,6 +82,16 @@ CREATE TABLE forum_comments (
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (post_id) REFERENCES forum_posts(id),
+    FOREIGN KEY (author_id) REFERENCES users(id)
+);
+
+CREATE TABLE replies (
+    id SERIAL PRIMARY KEY,
+    comment_id INT NOT NULL,
+    author_id INT NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (comment_id) REFERENCES forum_comments(id),
     FOREIGN KEY (author_id) REFERENCES users(id)
 );
 
@@ -124,3 +151,7 @@ INSERT INTO forum_comments (post_id, author_id, content)
 VALUES
     (1, 1, 'Sure, what do you need help with?'),
     (2, 1, 'I can assist you with that.');
+
+
+INSERT INTO replies (comment_id, author_id, content, created_at)
+VALUES (1, 1, 'This is a reply to comment 1', CURRENT_TIMESTAMP);
