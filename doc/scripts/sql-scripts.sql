@@ -14,6 +14,16 @@ CREATE TABLE users (
     role VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE roles (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE users
+ADD COLUMN role_id INTEGER REFERENCES roles(id);
+
+SELECT * FROM users ;
+
 CREATE TABLE enrollments (
     id SERIAL PRIMARY KEY,
     course_id INT NOT NULL,
@@ -77,6 +87,8 @@ VALUES
     ('jane_smith', 'password456', 'jane.smith@example.com', 'STUDENT'),
     ('alice_wonderland', 'password789', 'alice.wonderland@example.com', 'ADMIN');
 
+INSERT INTO roles(name) VALUES
+('ROLE_STUDENT'),('ROLE_ADMIN'),('ROLE_INSTRUCTOR');
 -- Insert data into the courses table
 INSERT INTO courses (title, description, instructor_id)
 VALUES

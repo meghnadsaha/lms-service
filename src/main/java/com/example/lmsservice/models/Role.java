@@ -1,7 +1,17 @@
 package com.example.lmsservice.models;
 
-public enum Role {
-    ADMIN,
-    INSTRUCTOR,
-    STUDENT
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Role {
+
+    private Integer id;
+    private ERole name;
 }
