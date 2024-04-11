@@ -87,6 +87,10 @@ VALUES
     ('jane_smith', 'password456', 'jane.smith@example.com', 'STUDENT'),
     ('alice_wonderland', 'password789', 'alice.wonderland@example.com', 'ADMIN');
 
+INSERT INTO roles(name) VALUES
+    ('ROLE_USER'),
+    ('ROLE_MODERATOR'),
+    ('ROLE_ADMIN');
 -- Insert data into the courses table
 INSERT INTO courses (title, description, instructor_id)
 VALUES
