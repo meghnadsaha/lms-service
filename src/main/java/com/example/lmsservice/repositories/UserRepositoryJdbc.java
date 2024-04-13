@@ -32,7 +32,7 @@ public class UserRepositoryJdbc implements UserRepository {
 
     @Override
     public User saveUser ( User user ) {
-        String sql = "INSERT INTO users (username, password_Hash, email, role_id) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO users (username, passwordHash, email, role_id) VALUES (?, ?, ?, ?)";
 
         try {
             jdbcTemplate.update(sql, user.getUsername(), user.getPasswordHash(), user.getEmail(), user.getRoles().iterator().next().getId());

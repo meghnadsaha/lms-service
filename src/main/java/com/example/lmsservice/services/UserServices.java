@@ -14,8 +14,12 @@ public class UserServices {
     @Autowired
     private UserRepository userRepository;
 
-    public User signup ( User user ) {
-        return userRepository.saveUser(user);
+    public void signup ( User user ) {
+        try {
+            userRepository.saveUser(user);
+        } catch (Exception e) {
+            System.out.println("Error during signup due to " + e.getMessage());
+        }
     }
 
     public Optional<User> findByUsername ( String username ) {

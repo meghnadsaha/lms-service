@@ -6,23 +6,22 @@ CREATE TABLE courses (
     instructor_id INT NOT NULL
 );
 
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    passwordHash  VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    role VARCHAR(50) NOT NULL
-);
+--CREATE TABLE users (
+--    id SERIAL PRIMARY KEY,
+--    username VARCHAR(255) NOT NULL,
+--    passwordHash  VARCHAR(255) NOT NULL,
+--    email VARCHAR(255) NOT NULL,
+--);
+--
+--CREATE TABLE roles (
+--    id SERIAL PRIMARY KEY,
+--    name VARCHAR(255) NOT NULL
+--);
+--
+--ALTER TABLE users
+--ADD COLUMN role_id INTEGER REFERENCES roles(id);
 
-CREATE TABLE roles (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
-);
-
-ALTER TABLE users
-ADD COLUMN role_id INTEGER REFERENCES roles(id);
-
-SELECT * FROM users ;
+--SELECT * FROM users ;
 
 CREATE TABLE enrollments (
     id SERIAL PRIMARY KEY,
