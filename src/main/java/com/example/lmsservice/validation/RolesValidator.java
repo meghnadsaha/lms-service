@@ -4,22 +4,20 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-public class RolesValidator implements ConstraintValidator<ValidRoles, List<String>> {
+public class RolesValidator implements ConstraintValidator<AllowedRoles, Set<String>> {
 
-    private static final List<String> ALLOWED_ROLES = Arrays.asList("ROLE_ADMIN" , "ROLE_MODERATOR" , "ROLE_STUDENT" ,
-                                                                    "ROLE_INSTRUCTOR");
-
-    @Override
-    public void initialize ( ValidRoles constraintAnnotation ) {
-    }
+    private static final Set<String> ALLOWED_ROLES = new HashSet<>(
+            Arrays.asList("ROLE_ADMIN" , "ROLE_MODERATOR" , "ROLE_STUDENT" , "ROLE_INSTRUCTOR"));
 
     @Override
-    public boolean isValid ( List<String> roles , ConstraintValidatorContext constraintValidatorContext ) {
+    public boolean isValid ( Set<String> roles , ConstraintValidatorContext context ) {
         if (roles == null) {
             return false;
         }
+
         for (String role : roles) {
             if (!ALLOWED_ROLES.contains(role)) {
                 return false;
@@ -27,6 +25,4 @@ public class RolesValidator implements ConstraintValidator<ValidRoles, List<Stri
         }
         return true;
     }
-
-
 }

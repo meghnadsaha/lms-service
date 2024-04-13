@@ -3,20 +3,19 @@ package com.example.lmsservice.validation;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target({ElementType.FIELD , ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = RolesValidator.class)
-public @interface ValidRoles {
+public @interface AllowedRoles {
 
-    String message() default "Invalid roles";
+    String message () default "Invalid roles. Allowed roles are: ROLE_ADMIN, ROLE_MODERATOR, ROLE_STUDENT, ROLE_INSTRUCTOR";
 
-    Class<?>[] groups() default {};
+    Class<?>[] groups () default {};
 
-    Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload () default {};
 }

@@ -4,7 +4,6 @@ package com.example.lmsservice.controllers;
 import com.example.lmsservice.dto.*;
 import com.example.lmsservice.exception.TokenExpiredException;
 import com.example.lmsservice.exception.UserInfoNotFoundException;
-import com.example.lmsservice.mapper.UserMapper;
 import com.example.lmsservice.models.RefreshToken;
 import com.example.lmsservice.models.UserInfo;
 import com.example.lmsservice.services.JwtService;
@@ -20,11 +19,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +29,7 @@ import java.util.Optional;
 @RequestMapping("/api/auth")
 //@CrossOrigin(origins = "*") // Allow requests from all domains
 @CrossOrigin(origins = "http://localhost:8080")
+@Validated
 public class AuthController {
 
     @Autowired
@@ -50,34 +48,32 @@ public class AuthController {
     private UserInfoUserDetailsService userInfoUserDetailsService;
 
 
-//    @PostMapping("/signUp")
-//    public String addNewUser ( @RequestBody UserInfo userInfo ) {
-//        return service.addUser(userInfo);
-//    }
-
     @PostMapping("/signUp")
-    public ResponseEntity<String> addNewUser( @Valid @RequestBody SaveUserDTO saveUserDTO, BindingResult result) {
+    public ResponseEntity<String> addNewUser ( @Valid @RequestBody SaveUserDTO saveUserDTO ) {
 
 
         // Map SaveUserDTO to UserInfo and call service method to add user
-        UserInfo userInfo = UserMapper.INSTANCE.mapToUserInfo(saveUserDTO);
+//        UserInfo userInfo = UserMapper.INSTANCE.mapToUserInfo(saveUserDTO);
 
-        if (result.hasErrors()) {
-            return ResponseEntity.badRequest().body("Invalid request body");
-        }
 
-        if (userInfoUserDetailsService.existsByUsername(userInfo.getName())) {
+        if (userInfoUserDetailsService.existsByUsername(saveUserDTO.getName())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists");
         }
 
-        if (userInfoUserDetailsService.existsByEmail(userInfo.getEmail())) {
+        if (userInfoUserDetailsService.existsByEmail(saveUserDTO.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists");
         }
+
+        UserInfo userInfo = UserInfo.builder()
+                                    .name(saveUserDTO.getName())
+                                    .email(saveUserDTO.getEmail())
+                                    .password(saveUserDTO.getPassword())
+                                    .roles(saveUserDTO.getRoles())
+                                    .build();
 
         String message = service.addUser(userInfo);
         return ResponseEntity.ok(message);
     }
-
 
 
     @GetMapping("/all")
@@ -144,6 +140,7 @@ public class AuthController {
             throw new TokenExpiredException("Refresh token is not in database!");
         }
     }
+
 
 
 }

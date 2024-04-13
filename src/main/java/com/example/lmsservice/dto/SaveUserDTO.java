@@ -1,6 +1,6 @@
 package com.example.lmsservice.dto;
 
-import com.example.lmsservice.validation.ValidRoles;
+import com.example.lmsservice.validation.AllowedRoles;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -17,6 +17,7 @@ public class SaveUserDTO {
 
     @NotNull
     @NotEmpty
+//    @CustomValidation
     private String name;
 
     @NotNull
@@ -28,10 +29,10 @@ public class SaveUserDTO {
     @NotEmpty
     @Size(min = 3, max = 255)
     private String password;
-    
+
     @NotNull
     @NotEmpty
-    @ValidRoles
+    @AllowedRoles
     private Set<String> roles = new HashSet<>();
 
 
