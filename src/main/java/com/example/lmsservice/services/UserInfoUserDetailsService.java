@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class UserInfoUserDetailsService implements UserDetailsService {
@@ -24,5 +25,11 @@ public class UserInfoUserDetailsService implements UserDetailsService {
         return userInfo.map(UserInfoUserDetails::new)
                        .orElseThrow(() -> new UsernameNotFoundException("user not found " + username));
 
+    }
+    public Set<String> getUserRolesById( String username ) {
+        UserInfo userInfo = repository.findByName(username)
+                                      .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return userInfo.getRoles();
     }
 }

@@ -12,6 +12,7 @@ import com.example.lmsservice.models.UserInfo;
 import com.example.lmsservice.services.JwtService;
 import com.example.lmsservice.services.ProductService;
 import com.example.lmsservice.services.RefreshTokenService;
+import com.example.lmsservice.services.UserInfoUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,7 +39,8 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
+    @Autowired
+    UserInfoUserDetailsService userInfoUserDetailsService;
     @PostMapping("/signUp")
     public String addNewUser ( @RequestBody UserInfo userInfo ) {
         return service.addUser(userInfo);
@@ -65,6 +67,7 @@ public class AuthController {
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(authRequest.getUsername());
             return JwtResponse.builder()
                               .accessToken(jwtService.generateToken(authRequest.getUsername()))
+                    .roles(userInfoUserDetailsService.getUserRolesById(authRequest.getUsername()))
                               .token(refreshToken.getToken()).build();
         } else {
             throw new UsernameNotFoundException("invalid user request !");
