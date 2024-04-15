@@ -20,9 +20,13 @@ public class UserInfoUserDetails implements UserDetails {
     public UserInfoUserDetails ( UserInfo userInfo ) {
         name = userInfo.getName();
         password = userInfo.getPassword();
-        authorities = Arrays.stream(userInfo.getRoles().split(","))
-                            .map(SimpleGrantedAuthority::new)
-                            .collect(Collectors.toList());
+//        authorities = Arrays.stream(userInfo.getRoles().split(","))
+//                            .map(SimpleGrantedAuthority::new)
+//                            .collect(Collectors.toList());
+
+        authorities = userInfo.getRoles().stream()
+                              .map(SimpleGrantedAuthority::new)
+                              .collect(Collectors.toList());
     }
 
     @Override
